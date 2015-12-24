@@ -1,0 +1,25 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// Sample zone for a FQDN of `example.com`
+zone "example.com" {
+    type master;
+    file "/etc/bind/zones/db.example.com";
+};
+
+// Default reverse zone for the `192.168.1.0/24` block
+// Adjust this block and the `zones/db.192.168.1` file if needed
+// to match your network settings.
+// e.g., if your host's IP address is 192.168.0.23:
+//	change the block name to `zone "0.168.192.in-addr.arpa"`
+//	change `/etc/bind/zones/db.192.168.1` to `/etc/bind/zones/db.192.168.0`
+//	modify the contents of `/etc/bind/zones/db.*` accordingly
+zone "1.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.192.168.1";
+};

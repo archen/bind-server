@@ -1,0 +1,46 @@
+// To restrict DNS queries to a subset of clients, uncomment this block
+// and the `allow-query` directive further in the config.
+//acl allowed_clients {
+//        192.168.1.0/24;
+//        localhost;
+//        localnets;
+//};
+// Adjust the above ACL settings to match your network configuration
+// e.g., if your host IP is 192.168.0.x, change the first ACL from:
+//	192.168.1.0/24
+//	  to:
+//	192.168.0.0/24
+// You can add more networks as well, delimited by a `;`
+
+
+options {
+	directory "/var/cache/bind";
+
+	// If there is a firewall between you and nameservers you want
+	// to talk to, you may need to fix the firewall to allow multiple
+	// ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+
+	// If your ISP provided one or more IP addresses for stable 
+	// nameservers, you probably want to use them as forwarders.  
+	// Uncomment the following block, and insert the addresses replacing 
+	// the all-0's placeholder.
+
+	// forwarders {
+	// 	0.0.0.0;
+	// };
+
+	//========================================================================
+	// If BIND logs error messages about the root key being expired,
+	// you will need to update your keys.  See https://www.isc.org/bind-keys
+	//========================================================================
+	dnssec-validation auto;
+
+	recursion yes;
+	// Uncomment the following block to use the previously defined
+	// Access Control List `allowed_clients`
+	//allow-query { allowed_clients; };
+	
+	auth-nxdomain no;    # conform to RFC1035
+	listen-on-v6 { any; };
+};
+
