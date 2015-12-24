@@ -36,10 +36,11 @@ options {
 	dnssec-validation auto;
 
 	recursion yes;
-	// Uncomment the following block to use the previously defined
+	// Uncomment the following line to use the previously defined
 	// Access Control List `allowed_clients`
 	//allow-query { allowed_clients; };
-	
+	// Comment the next line to use the above ACL
+	allow-query { any; };
 	auth-nxdomain no;    # conform to RFC1035
 	listen-on-v6 { any; };
 };
